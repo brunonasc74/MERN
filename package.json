@@ -3,7 +3,7 @@
   "name": "mern",
   "version": "1.0.0",
   "description": "mern stack",
-  "main": "./backend/server.js",
+  "main": "./backend/index.js",
   "author": "Bruno Nascimento",
   "license": "MIT",
   "dependencies": {
