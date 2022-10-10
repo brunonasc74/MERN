@@ -33,7 +33,18 @@ class UserController {
 	}
 
 	static async loginUser(req, res) {
-		res.send('login user');
+		try {
+			const { email, password } = req.body;
+
+			const user = await User.findOne({ email });
+			if (user && (await bcrypt.compare(password, user.password))) {
+				res
+					.status(200)
+					.send({ _id: user.id, name: user.name, email: user.email });
+			} else res.status(400).send({ error: 'invalid credentials' });
+		} catch (err) {
+			res.status(400).send(err);
+		}
 	}
 
 	static async getData(req, res) {
