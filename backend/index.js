@@ -1,9 +1,9 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import colors from 'colors';
 import connectDB from './config/db.js';
 import router from './router/index.js';
 
+dotenv.config();
 connectDB();
 
 const app = express();
