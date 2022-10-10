@@ -54,7 +54,13 @@ class UserController {
 	}
 
 	static async getData(req, res) {
-		res.send('user data display');
+		try {
+			const { _id, name, email } = await User.findById(req.user.id);
+
+			res.status(200).send({ id: _id, name, email });
+		} catch (err) {
+			res.status(400).send(err);
+		}
 	}
 }
 
