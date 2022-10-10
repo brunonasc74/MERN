@@ -24,9 +24,12 @@ class UserController {
 				password: hashedPassword
 			});
 			if (!user) return res.status(400).send({ error: 'invalid user data' });
-			res
-				.status(201)
-				.send({ _id: user.id, name: user.name, email: user.email });
+			res.status(201).send({
+				_id: user.id,
+				name: user.name,
+				email: user.email,
+				token: generateToken(user._id)
+			});
 		} catch (err) {
 			res.status(400).send(err);
 		}
@@ -38,9 +41,12 @@ class UserController {
 
 			const user = await User.findOne({ email });
 			if (user && (await bcrypt.compare(password, user.password))) {
-				res
-					.status(200)
-					.send({ _id: user.id, name: user.name, email: user.email });
+				res.status(200).send({
+					_id: user.id,
+					name: user.name,
+					email: user.email,
+					token: generateToken(user._id)
+				});
 			} else res.status(400).send({ error: 'invalid credentials' });
 		} catch (err) {
 			res.status(400).send(err);
@@ -51,5 +57,10 @@ class UserController {
 		res.send('user data display');
 	}
 }
+
+// Generate JWT
+const generateToken = (id) => {
+	return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+};
 
 export default UserController;
