@@ -5,12 +5,12 @@ const protect = async (req, res, next) => {
 	let token;
 
 	if (
-		req.header.authorization &&
-		req.header.authorizathion.startsWith('Bearer')
+		req.headers.authorization &&
+		req.headers.authorization.startsWith('Bearer')
 	) {
 		try {
 			// Get token from header
-			token = req.header.authorization.split(' ')[1];
+			token = req.headers.authorization.split(' ')[1];
 
 			// Verify token
 			const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -23,9 +23,7 @@ const protect = async (req, res, next) => {
 			console.log(err);
 			res.status(401).send({ error: 'Not authorized' });
 		}
-	}
-	if (!token)
-		return res.status(401).send({ error: 'Not authorized, no token' });
+	} else res.status(401).send({ error: 'Not authorized, no token' });
 };
 
 export default protect;
