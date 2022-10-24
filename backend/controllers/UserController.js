@@ -3,6 +3,9 @@ import bcrypt from 'bcryptjs';
 import User from '../models/userModel.js';
 
 class UserController {
+	// @desc   Register new user
+	// @route  POST /api/user
+	// @access Public
 	static async registerUser(req, res) {
 		try {
 			const { name, email, password } = req.body;
@@ -35,6 +38,9 @@ class UserController {
 		}
 	}
 
+	// @desc   Login user
+	// @route  POST /api/user/login
+	// @access Public
 	static async loginUser(req, res) {
 		try {
 			const { email, password } = req.body;
@@ -53,6 +59,9 @@ class UserController {
 		}
 	}
 
+	// @desc   Get user data
+	// @route  GET /api/user/me
+	// @access Private
 	static async getData(req, res) {
 		try {
 			const { _id, name, email } = await User.findById(req.user.id);

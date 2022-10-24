@@ -2,6 +2,9 @@ import Goal from '../models/goalModel.js';
 import User from '../models/userModel.js';
 
 class GoalController {
+	// @desc   Get all user's goals
+	// @route  GET /api/goals
+	// @access Private
 	static async getGoals(req, res) {
 		try {
 			const goals = await Goal.find({ user: req.user.id });
@@ -11,6 +14,9 @@ class GoalController {
 		}
 	}
 
+	// @desc   Create new goal
+	// @route  POST /api/goals
+	// @access Private
 	static async postGoals(req, res) {
 		try {
 			await Goal.create({ user: req.user.id, text: req.body.text });
@@ -20,6 +26,9 @@ class GoalController {
 		}
 	}
 
+	// @desc   Edit selected goal
+	// @route  PUT /api/goals/:id
+	// @access Private
 	static async editGoals(req, res) {
 		try {
 			const goal = await Goal.findById(req.params.id);
@@ -46,6 +55,9 @@ class GoalController {
 		}
 	}
 
+	// @desc   Delete selected goal
+	// @route  DELETE /api/goals/:id
+	// @access Private
 	static async deleteGoals(req, res) {
 		try {
 			const goal = await Goal.findById(req.params.id);
