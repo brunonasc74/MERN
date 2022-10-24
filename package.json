@@ -4,6 +4,10 @@
   "version": "1.0.0",
   "description": "mern stack",
   "main": "./backend/index.js",
+  "scripts": {
+    "start": "node ./backend/index.js",
+    "client": "npm run dev --prefix frontend"
+  },
   "author": "Bruno Nascimento",
   "license": "MIT",
   "dependencies": {
